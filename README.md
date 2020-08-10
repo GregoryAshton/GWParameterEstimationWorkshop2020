@@ -4,7 +4,7 @@ Repository to store the materials for the August GW Parameter Estimation worksho
 ## Overview
 * Pre-workshop
   * [Installation](pages/installation.md)
-  * [First steps](pages/first-steps.md)
+  * [Getting started: GW-ODW](pages/gwodw.md)
   
 * Session 1
   * [Getting started with bilby: simple BBH PE](pages/getting-started.md)
