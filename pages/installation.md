@@ -6,7 +6,7 @@ To get started, you'll need to install the bilby and bilby_pipe software.
 
 Here is a video (click the image) which takes you through the installation process step by step
 
-[![Installation](stills/installation.png)](https://youtu.be/hpf14HnWIYw)
+<a href=https://youtu.be/hpf14HnWIYw> <img src="stills/installation.png" alt="alt text" width="300"> </a>
 
 ## Links
 
