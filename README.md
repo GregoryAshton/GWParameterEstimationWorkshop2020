@@ -3,8 +3,8 @@ Repository of materials for the August GW Parameter Estimation workshop on behal
 
 ## Overview
 * Pre-workshop material
-  * [Installation](pages/installation.md)
-  * [Getting started: GW-ODW](pages/gwodw.md)
+  * [Installation](pages/installation.md), *recommended*: This page goes through the installation steps for bilby and bilby_pipe 
+  * [Getting started: GW-ODW](pages/gwodw.md), *optional*: This page goes through the parameter estimation tutorial from the 2020 GWOSC Open Data Workshop, covering many of the introductory concepts we will hit in this workshop.
   
 * Session 1 (August 27th 14:00-16:30 IST)
   * Introduction to Bayesian inference and Gravitational-Wave parameter estimation (Greg)
