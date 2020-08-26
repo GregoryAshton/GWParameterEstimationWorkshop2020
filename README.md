@@ -12,4 +12,4 @@ Repository of materials for the August GW Parameter Estimation workshop on behal
   
 * Session 2 (August 28th 14:00-16:30 IST)
   * [Introduction to Bayesian inference at scale: bilby_pipe and clusters](https://github.com/GregoryAshton/GWParameterEstimationWorkshop2020/blob/master/presentations/GWPE_workshop2020_day2.pdf) (Greg)
-  * [Getting started with bilby_pipe](pages/getting-started-pipe.md) (Break-out rooms with tutors)
+  * [Getting started with bilby_pipe](pages/getting-started-pipe.md) (Interactive session with Greg then break-out rooms)
