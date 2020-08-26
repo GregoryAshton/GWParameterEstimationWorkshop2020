@@ -232,7 +232,30 @@ Or you can copy parts of the file you want to run to a separate script and run e
 ### Looking at the outputs
 Once you have run the example to completion, we should check the outputs. If you ran using either `slurm` or `HTCondor` the `log*` files will be populated with files containing the run outputs. If instead you ran it locally, this output would have been printed to the terminal.
 
-In the `results` directory, is stored all of the relevant output:
+#### The dynesty output
+If you are using the dynesty sampler, you'll get output like this (either in the logs, or printed to the terminal)
+```
+136it [00:04,  4.57it/s, bound:0 nc:  1 ncall:6.6e+02 eff:20.7% logz-ratio=146.11+/-0.13 dlogz:321.891>0.1]
+151it [00:04,  6.44it/s, bound:0 nc:  3 ncall:6.8e+02 eff:22.3% logz-ratio=151.24+/-0.13 dlogz:316.951>0.1]
+169it [00:04,  9.05it/s, bound:0 nc:  1 ncall:7.0e+02 eff:24.1% logz-ratio=155.53+/-0.13 dlogz:312.568>0.1]
+185it [00:04, 12.54it/s, bound:0 nc:  1 ncall:7.3e+02 eff:25.3% logz-ratio=160.67+/-0.14 dlogz:307.518>0.1]
+203it [00:04, 17.38it/s, bound:0 nc:  1 ncall:7.5e+02 eff:27.0% logz-ratio=168.88+/-0.14 dlogz:299.232>0.1]
+```
+By column, this tells you: 
+* `203it`: the number of iterations
+* `00:04`: the time taken so far (note if jobs are restarted this counter is reset to zero)
+* `17.38it/s`: the number of iterations per second
+* `bound:0`: the bound index (see [dynesty docs](https://dynesty.readthedocs.io/en/latest/faq.html))
+* `nc:  1`: the number of likelihood calls used in the last iterations
+* `ncall:7.5e+02`: the total number of calls
+* `eff:27.0%`: the sampling efficiency 
+* `logz-ratio=168.88+/-0.14`: the current logz-ratio estimate (if > 0, this is a Bayes factor in support of the signal hypothesis vs. Gaussian noise)
+* `dlogz:299.232>3` the estimated remaining evidence and threshold (in this instance, 0.1). Sampling will finish when `dlogz` is less than the threshold.
+
+Roughly speaking `logz-ratio + dlogz` is an estimate of the final evidence, but note that `dlogz` can jump if new regions of the parameter space are found with high likelihoods.
+
+#### Output files
+In the `results` directory, we have all of the relevant output:
 ```bash
 $ ls outdir_bbh_injection/result
 bbh_injection_data0_0_analysis_H1L1_dynesty_result.json  # <- THIS IS THE MAIN RESULT FILE
