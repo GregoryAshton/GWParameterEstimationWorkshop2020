@@ -255,4 +255,4 @@ This is a plot of the number of calls and the scale parameter for nested samplin
 
 #### The trace plot
 Shows the [dynesty trace plot](https://dynesty.readthedocs.io/en/latest/quickstart.html#trace-plots). The right-hand side are the 1D posteriors
-![stats](example_outputs/bbh_injection_data0_0_analysis_H1L1_dynesty_checkpoint_stats.png)
+![stats](example_outputs/bbh_injection_data0_0_analysis_H1L1_dynesty_checkpoint_trace.png)
