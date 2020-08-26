@@ -228,3 +228,31 @@ $ bash outdir_bbh_injection/submit/bash_bbh_injection.sh
 Or you can copy parts of the file you want to run to a separate script and run each one individually (this is often very useful if you **just** want to run a step locally, i.e. the plotting).
 | :rocket: Task: the example script using *either* the `--local` flag or the bash file |
 | --- |
+
+### Looking at the outputs
+Once you have run the example to completion, we should check the outputs. If you ran using either `slurm` or `HTCondor` the `log*` files will be populated with files containing the run outputs. If instead you ran it locally, this output would have been printed to the terminal.
+
+In the `results` directory, is stored all of the relevant output:
+```bash
+$ ls outdir_bbh_injection/result
+bbh_injection_data0_0_analysis_H1L1_dynesty_result.json  # <- THIS IS THE MAIN RESULT FILE
+bbh_injection_data0_0_analysis_H1L1_dynesty_dynesty.pickle  # <- A python pickle file of the dynesty sampler output
+bbh_injection_data0_0_analysis_H1L1_dynesty_resume.pickle  # <- A python pickle file used to store results during the run
+bbh_injection_data0_0_analysis_H1L1_dynesty_samples.dat  # <- A set of samples created during the run, not the final output
+bbh_injection_data0_0_analysis_H1L1_dynesty_checkpoint_run.png 
+bbh_injection_data0_0_analysis_H1L1_dynesty_checkpoint_stats.png
+bbh_injection_data0_0_analysis_H1L1_dynesty_checkpoint_trace.png
+```
+The last three `png` images contain diagnostic plots. These will be updated during the run and help show the progress
+
+#### The run plot
+Shows the [dynesty summary plot](https://dynesty.readthedocs.io/en/latest/quickstart.html#summary-plots)
+![run](example_outputs/bbh_injection_data0_0_analysis_H1L1_dynesty_checkpoint_run.png)
+
+#### The stats plot
+This is a plot of the number of calls and the scale parameter for nested sampling proposals (for this short run, it is a little uninteresting)
+![stats](example_outputs/bbh_injection_data0_0_analysis_H1L1_dynesty_checkpoint_stats.png)
+
+#### The trace plot
+Shows the [dynesty trace plot](https://dynesty.readthedocs.io/en/latest/quickstart.html#trace-plots). The right-hand side are the 1D posteriors
+![stats](example_outputs/bbh_injection_data0_0_analysis_H1L1_dynesty_checkpoint_stats.png)
