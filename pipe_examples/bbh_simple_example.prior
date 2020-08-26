@@ -1,0 +1,15 @@
+mass_1 = 50.0
+mass_2 = 45.0
+a_1 = 0.0
+a_2 = 0.0
+tilt_1 = 0.0
+tilt_2 = 0.0
+phi_12 = 0.0
+phi_jl = 0.0
+luminosity_distance =  bilby.gw.prior.UniformComovingVolume(name='luminosity_distance', minimum=1e2, maximum=5e3, unit='Mpc')
+dec = -0.2
+ra = 1.4
+theta_jn = Sine(name='theta_jn')
+psi = 0.0
+phase = 0.0
+geocent_time = 0.0
