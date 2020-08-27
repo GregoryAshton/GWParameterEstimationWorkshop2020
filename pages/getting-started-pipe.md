@@ -39,7 +39,7 @@ You can also view this output [in the docs](https://lscsoft.docs.ligo.org/bilby_
 | :rocket: Task: run the `--help` command and check it produces output |
 | --- |
 
-## The ini file
+## The ini file: simple BBH simulation
 
 An ini file consists of `key=value` pairs, a complete guide can be found [in the docs](https://lscsoft.docs.ligo.org/bilby_pipe/master/ini_file.html), here we will go through an example for a simulated signal.
 
@@ -82,9 +82,23 @@ n-simulation = 1
 
 # We'll run one "parallel" job. This runs n-parallel *identical* jobs and then combines the results together into a single combined run
 n-parallel = 1
+
+# Use parallisation using 4 cores on one node (remove comment to use)
+# request-cpus = 4
+
 ```
 | :rocket: Task: save the contents of the ini file above in a file `bbh_simple_example.ini` |
 | --- |
+
+### Parallelisation
+As mentioned elsewhere, bilby supports a paralleisation up to the number of cores available a node. To access this, add the line
+```
+request-cpus = 4
+```
+You can check this is being applied by seeing this line in the logs:
+```
+Setting up multiproccesing pool with 4 processes.
+```
 
 ### Prior file
 Note, in the ini file, we specified `prior-file = bbh_simple_example.prior`, this is pointing to a file (you can specify and absolute or relative path as needed).
@@ -279,3 +293,64 @@ This is a plot of the number of calls and the scale parameter for nested samplin
 #### The trace plot
 Shows the [dynesty trace plot](https://dynesty.readthedocs.io/en/latest/quickstart.html#trace-plots). The right-hand side are the 1D posteriors
 ![stats](example_outputs/bbh_injection_data0_0_analysis_H1L1_dynesty_checkpoint_trace.png)
+
+## Priors
+
+As seen above, you can specify your own prior using a prior file. `bilby_pipe` also provides a set of default prior files based on the duration of data. These are:
+* [4s](https://git.ligo.org/lscsoft/bilby_pipe/-/blob/master/bilby_pipe/data_files/4s.prior)
+* [8s](https://git.ligo.org/lscsoft/bilby_pipe/-/blob/master/bilby_pipe/data_files/8s.prior)
+* [16s](https://git.ligo.org/lscsoft/bilby_pipe/-/blob/master/bilby_pipe/data_files/16s.prior)
+* [32s](https://git.ligo.org/lscsoft/bilby_pipe/-/blob/master/bilby_pipe/data_files/32s.prior)
+* [64s](https://git.ligo.org/lscsoft/bilby_pipe/-/blob/master/bilby_pipe/data_files/64s.prior)
+* [128s](https://git.ligo.org/lscsoft/bilby_pipe/-/blob/master/bilby_pipe/data_files/128s.prior)
+
+The chirp-mass range ensures that the signals fit within the data duration. To use these default priors, simplify specify
+```
+prior-file=4s
+```
+
+## Accessing data
+
+If you want to access data, you'll need to specify a `trigger-time` (a GPS time as used by LIGO/Virgo) and the `channel-dict` used to determine *which* data to use. Here is an example ini file for running on GW150914
+```
+# The accounting tag, onnly needed on LDG clusters.
+# See https://ldas-gridmon.ligo.caltech.edu/accounting/condor_groups/determine_condor_account_group.html
+# for help with determining what tag to use
+accounting = FILL_THIS_IN
+
+# A label to help us remember what the job was for
+label = GW150914
+
+# The directory to store results in
+outdir = outdir_bbh_gwosc_GW150914
+
+# Which detectors to use, option: H1, L1, V1
+detectors = [H1, L1]
+
+# The duration of data to analyse in seconds
+duration = 4
+
+# The sampler
+sampler = dynesty
+
+# The options to pass to the sampler
+sampler-kwargs = {'nlive': 1000}
+
+# The prior file to use
+prior-file = 4s
+
+# For events, we can pull in the time using a string
+trigger-time = GW150914
+
+# You could alternatively do (uncomment to test)
+# trigger-time = 1126259462.4
+
+# Here we specify the GWOSC channel, if you want to use a different channel
+# you can pass that per-detector
+channel-dict = {H1:GWOSC, L1:GWOSC}
+```
+
+:warning: Warning: running the ini file above will take ~ 12hrs as it is a full analysis of GW150914
+
+
+
