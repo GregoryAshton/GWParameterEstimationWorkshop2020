@@ -352,5 +352,81 @@ channel-dict = {H1:GWOSC, L1:GWOSC}
 
 :warning: Warning: running the ini file above will take ~ 12hrs as it is a full analysis of GW150914
 
+## Inject a signal into real data
 
+```
+# The accounting tag, onnly needed on LDG clusters.
+# See https://ldas-gridmon.ligo.caltech.edu/accounting/condor_groups/determine_condor_account_group.html
+# for help with determining what tag to use
+accounting = FILL_THIS_IN
 
+# A label to help us remember what the job was for
+label = gwosc_injection
+
+# The directory to store results in
+outdir = outdir_bbh_gwosc_injection
+
+# Which detectors to use, option: H1, L1, V1
+detectors = [H1, L1]
+
+# The duration of data to analyse in seconds
+duration = 4
+
+# The sampler
+sampler = dynesty
+
+# The options to pass to the sampler
+sampler-kwargs = {'nlive': 1000}
+
+# The prior file to use
+prior-file = 4s
+
+# Specify a random time (a few hundred seconds after GW150914)
+trigger-time = 1126259600
+
+# Here we specify the GWOSC channel, if you want to use a different channel
+# you can pass that per-detector
+channel-dict = {H1:GWOSC, L1:GWOSC}
+
+injection=True
+injection-dict={'chirp_mass': 17.051544979894693, 'mass_ratio': 0.3183945489993522, 'a_1': 0.29526500202350264, 'a_2': 0.23262056301313416, 'tilt_1': 1.0264673717225983, 'tilt_2': 2.1701305583885513, 'phi_12': 5.0962562029664955, 'phi_jl': 2.518241237045709, 'luminosity_distance': 497.2983560174788, 'dec': 0.2205292600865073, 'ra': 3.952677097361719, 'theta_jn': 1.8795187965094322, 'psi': 2.6973435044499543, 'phase': 3.686990398567503, 'geocent_time': 0.040833669551002205}
+```
+
+:warning: Warning: running the ini file above will take ~ 12hrs as it is a full analysis of GW150914
+
+## Power Spectral Densities
+
+### Setting the PSD using a file
+```
+psd-dict PSD_DICT   Dictionary of PSD files to use (default: None)
+```
+e.g.
+```
+psd-dict = {H1:psds_files/h1.psd}
+```
+
+### Estimating the PSD from the data
+If no PSD is given, one will be estimated from the data. Note this differs to standard LVK analyses which use a BayesWave generated PSD. Here are the options to control how that PSD is estimated.
+```
+  --psd-fractional-overlap PSD_FRACTIONAL_OVERLAP
+                        Fractional overlap of segments used in estimating the
+                        PSD (default: 0.5)
+  --post-trigger-duration POST_TRIGGER_DURATION
+                        Time (in s) after the trigger_time to the end of the
+                        segment (default: 2.0)
+  --sampling-frequency SAMPLING_FREQUENCY
+  --psd-length PSD_LENGTH
+                        Sets the psd duration (up to the psd-duration-
+                        maximum). PSD duration calculated by psd-length x
+                        duration [s]. Default is 32. (default: 32)
+  --psd-maximum-duration PSD_MAXIMUM_DURATION
+                        The maximum allowed PSD duration in seconds, default
+                        is 1024s. (default: 1024)
+  --psd-method PSD_METHOD
+                        PSD method see gwpy.timeseries.TimeSeries.psd for
+                        options (default: median)
+  --psd-start-time PSD_START_TIME
+                        Start time of data (relative to the segment start)
+                        used to generate the PSD. Defaults to psd-duration
+                        before the segment start time (default: None)
+```
