@@ -4,6 +4,8 @@ This tutorial will go through using `bilby_pipe`, a tool for running analyses
 at scale. `bilby_pipe` is not as flexible as `bilby`, but intended to do common
 tasks.
 
+All the files used are available in the repo [here](https://github.com/GregoryAshton/GWParameterEstimationWorkshop2020/tree/master/pipe_examples) for future reference.
+
 ## Installation
 
 * `bilby_pipe` is intended for use on either HTCondor or slurm clusters. You
@@ -389,7 +391,17 @@ trigger-time = 1126259600
 channel-dict = {H1:GWOSC, L1:GWOSC}
 
 injection=True
-injection-dict={'chirp_mass': 17.051544979894693, 'mass_ratio': 0.3183945489993522, 'a_1': 0.29526500202350264, 'a_2': 0.23262056301313416, 'tilt_1': 1.0264673717225983, 'tilt_2': 2.1701305583885513, 'phi_12': 5.0962562029664955, 'phi_jl': 2.518241237045709, 'luminosity_distance': 497.2983560174788, 'dec': 0.2205292600865073, 'ra': 3.952677097361719, 'theta_jn': 1.8795187965094322, 'psi': 2.6973435044499543, 'phase': 3.686990398567503, 'geocent_time': 0.040833669551002205}
+injection-dict={'chirp_mass': 17.051544979894693, 'mass_ratio': 0.3183945489993522, 'a_1': 0.29526500202350264, 'a_2': 0.23262056301313416, 'tilt_1': 1.0264673717225983, 'tilt_2': 2.1701305583885513, 'phi_12': 5.0962562029664955, 'phi_jl': 2.518241237045709, 'luminosity_distance': 497.2983560174788, 'dec': 0.2205292600865073, 'ra': 3.952677097361719, 'theta_jn': 1.8795187965094322, 'psi': 2.6973435044499543, 'phase': 3.686990398567503, 'geocent_time': 1126259600}
+```
+
+:warning: take care to make sure the `geocent_time` of the injection falls within the prior window (+/- 0.2 around the `trigger_time`)
+
+Running this, you can check estimated SNR of the injected signal in the logs, e.g.
+
+```
+12:53 bilby INFO    : Injected signal in L1:
+12:53 bilby INFO    :   optimal SNR = 13.28
+12:53 bilby INFO    :   matched filter SNR = -3.65+38.02j
 ```
 
 :warning: Warning: running the ini file above will take ~ 12hrs as it is a full analysis of GW150914
